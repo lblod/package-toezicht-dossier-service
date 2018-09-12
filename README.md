@@ -1,4 +1,4 @@
-# packages-toezicht-dossier-service
+# package-toezicht-dossier-service
 Microservice that packages a toezicht dossier by creating a zip file with the linked files and metadata files.
 
 ## Installation
