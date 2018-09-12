@@ -8,6 +8,8 @@ To add the service to your stack, add the following snippet to docker-compose.ym
 services:
   packagetoezicht:
     image: lblod/package-toezicht-dossier-service
+    volumes:
+      - ./data/files:/data/files
 ```
 
 ## REST API
