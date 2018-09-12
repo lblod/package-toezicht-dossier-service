@@ -3,5 +3,5 @@ LABEL maintainer=info@redpencil.io
 
 ENV FILE_PATH '/data/files/'
 ENV FILE_GRAPH 'http://mu.semte.ch/graphs/public'
-ENV PACKAGE_CRON_PATTERN '0 */12 * * * *'
+ENV PACKAGE_CRON_PATTERN '*/30 * * * * *'
 RUN mkdir -p /data/files/
