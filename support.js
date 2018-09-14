@@ -260,7 +260,6 @@ const fetchFilesForDossier = async function(dossierIri, graph) {
  * @return {Array}
  */
 const fetchFinancialDossiersToBePackaged = async function() {
-  // TODO add filter on type. Only Jaarrekening, Meerjarenplan, Budget
   const result = await query(`
        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
        PREFIX besluit: <http://data.vlaanderen.be/ns/besluit#>
@@ -286,6 +285,12 @@ const fetchFinancialDossiersToBePackaged = async function() {
                      dcterms:subject ?bestuurseenheid.
              FILTER NOT EXISTS {
                 ?uri toezicht:status ?status.
+             }
+
+            VALUES ?besluitType {
+                 <http://data.lblod.info/DecisionType/80536574a0ec8ea88685510b713aa566a5f16cfd575fabd8f7943bccaaad00e4> # Budget
+                 <http://data.lblod.info/DecisionType/d6e90eb6e3ceda4f9a47b214b3ab47274670d3621f34bf8984f4c7d99f97dcc2> # Jaarrekening
+                 <http://data.lblod.info/DecisionType/26697366c439cac0fd35581416baffec2368d765d61888bfb4bafd22ddbc8b33> # Meerjarenplan
              }
 
              OPTIONAL {
