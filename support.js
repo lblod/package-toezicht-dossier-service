@@ -294,7 +294,10 @@ const fetchFinancialDossiersToBePackaged = async function() {
              }
 
              OPTIONAL {
-                 ?uri toezicht:authenticityType/skos:prefLabel ?authenticityType .
+                 ?uri toezicht:authenticityType ?authenticityType .
+                  GRAPH  <http://mu.semte.ch/graphs/public> {
+                     ?authenticityType skos:prefLabel ?authenticityStatus .
+                  }
              }
            
              OPTIONAL {
@@ -314,7 +317,6 @@ const fetchFinancialDossiersToBePackaged = async function() {
                                mu:uuid ?groupId .
               ?classificatie skos:prefLabel ?classificatieNaam.
               ?besluitType skos:prefLabel ?besluitTypeLabel .
-              ?authenticityType skos:prefLabel ?authenticityStatus .
          }
 
          FILTER(?graph = IRI(CONCAT("http://mu.semte.ch/graphs/organizations/", ?groupId, "/LoketLB-toezichtGebruiker")))
