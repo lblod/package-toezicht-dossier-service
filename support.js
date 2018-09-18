@@ -74,8 +74,8 @@ const createZipFile = async function(name, files, borderel, publicatie) {
   files.map( (file) => {
     archive.file(fileUrlToPath(file.file), {name: file.filename});
   });
-  archive.file(borderel, {name: 'borderel.xml'});
-  archive.file(publicatie, {name: 'publicatie.xml'});  
+  archive.file(borderel, {name: 'Borderel.xml'}); // The capital really matters
+  archive.file(publicatie, {name: 'Publicatie.xml'}); // The capital really matters
   await archive.finalize();
   await fs.unlink(borderel);
   await fs.unlink(publicatie);  
@@ -93,7 +93,7 @@ const createBorderel = async function(dossier, files, publicatie) {
           .att('xmlns:ns1', 'http://MFT-01-00.abb.vlaanderen.be/Borderel');
   const bestanden = files.map( (file => { return { Bestand: { Bestandsnaam: file.filename } }; }));
   if (publicatie)
-    bestanden.push({ Bestand: { Bestandsnaam: 'publicatie.xml' } });
+    bestanden.push({ Bestand: { Bestandsnaam: 'Publicatie.xml' } }); // The capital really matters
   xml.ele({
     'ns1:Bestanden': bestanden,
     'ns1:RouteringsMetadata': {
