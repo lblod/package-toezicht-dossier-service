@@ -126,10 +126,10 @@ const createBorderel = async function(dossier, files, publicatie) {
  * @method createPublicatie
  */  
 const createPublicatie = async function(dossier) {
-  const xml = xmlbuilder.create('ns1:PublicatieBeleidsrapport', {}, {}, {separateArrayItems: true})
+  const xml = xmlbuilder.create('n1:PublicatieBeleidsrapport', {}, {}, {separateArrayItems: true})
          .att('xsi:schemaLocation', 'http://PUB_Beleidsrapport-01-00.abb.vlaanderen.be/Borderel/Publicatie.xsd')
           .att('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance')
-         .att('xmlns:ns1', 'http://PUB_Beleidsrapport-01-00.abb.vlaanderen.be/Borderel');
+         .att('xmlns:n1', 'http://PUB_Beleidsrapport-01-00.abb.vlaanderen.be/Borderel');
   const parameterSet = [
     ['Ondernemingsnummer', dossier.kbonummer],
     ['MaatschappelijkeNaam', dossier.naam],
@@ -140,7 +140,7 @@ const createPublicatie = async function(dossier) {
     ['DatumGoedkeuring', dossier.besluitdatum ? dossier.besluitdatum.substr(0, 10) : '']
   ];
   xml.ele({
-    'ns1:ParameterSet': parameterSet.map(function(param) {
+    'n1:ParameterSet': parameterSet.map(function(param) {
       return {
         ParameterParameterWaarde: {
           Parameter: param[0],
