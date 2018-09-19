@@ -87,16 +87,16 @@ const createZipFile = async function(name, files, borderel, publicatie) {
  */
 const createBorderel = async function(dossier, files, publicatie) {
   // see https://github.com/oozcitak/xmlbuilder-js/wiki
-  const xml = xmlbuilder.create('ns1:Borderel', {}, {}, {separateArrayItems: true})
+  const xml = xmlbuilder.create('ns2:Borderel', {}, {}, {separateArrayItems: true})
           .att('xsi:schemaLocation', 'http://MFT-01-00.abb.vlaanderen.be/Borderel Borderel.xsd')
           .att('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance')
-          .att('xmlns:ns1', 'http://MFT-01-00.abb.vlaanderen.be/Borderel');
+          .att('xmlns:ns2', 'http://MFT-01-00.abb.vlaanderen.be/Borderel');
   const bestanden = files.map( (file => { return { Bestand: { Bestandsnaam: file.filename } }; }));
   if (publicatie)
     bestanden.push({ Bestand: { Bestandsnaam: 'Publicatie.xml' } }); // The capital really matters
   xml.ele({
-    'ns1:Bestanden': bestanden,
-    'ns1:RouteringsMetadata': {
+    'ns2:Bestanden': bestanden,
+    'ns2:RouteringsMetadata': {
       Entiteit:'ABB',
       Toepassing: 'DIGITAAL TOEZICHT',
       'ParameterSet': [
