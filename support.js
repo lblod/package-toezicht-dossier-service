@@ -41,9 +41,8 @@ const pathToFileUrl = function(path) {
 const generateZipFileName = function(dossier, zipUUID){
   const timestamp = new Date().toISOString().replace(/[.:]/g, '_');
   const decisionDate = dossier.besluitdatum ? dossier.besluitdatum.substr(0, 10).replace(/-/g, ''): '';
-  const bestuur = `${dossier.classificatieNaam}_${dossier.naam}`.replace(/[^a-z0-9]/gi, '');
   const type = dossier.besluitTypeLabel.replace(/[^a-z0-9]/gi, '');
-  return `Inzending_financieel_${bestuur}_${type}_${dossier.authenticityStatus || ''}_${dossier.boekjaar || ''}_${decisionDate}_${timestamp}_${zipUUID}.zip`;
+  return `Inzending_financieel_${dossier.kbonummer}_${type}_${dossier.authenticityStatus || ''}_${dossier.boekjaar || ''}_${decisionDate}_${timestamp}_${zipUUID}.zip`;
 };
 
 /**
