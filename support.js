@@ -42,7 +42,8 @@ const generateZipFileName = function(dossier, zipUUID){
   const timestamp = new Date().toISOString().replace(/[.:]/g, '_');
   const decisionDate = dossier.besluitdatum ? dossier.besluitdatum.substr(0, 10).replace(/-/g, ''): '';
   const type = dossier.besluitTypeLabel.replace(/[^a-z0-9]/gi, '');
-  return `Inzending_financieel_${dossier.kbonummer}_${type}_${dossier.authenticityStatus || ''}_${dossier.boekjaar || ''}_${decisionDate}_${timestamp}_${zipUUID}.zip`;
+  const boekjaar = (dossier.boekjaar || '').replace(/[^a-z0-9]/gi, '');
+  return `Inzending_financieel_${dossier.kbonummer}_${type}_${dossier.authenticityStatus || ''}_${boekjaar}_${decisionDate}_${timestamp}_${zipUUID}.zip`;
 };
 
 /**
