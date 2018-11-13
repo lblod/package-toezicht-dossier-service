@@ -1,6 +1,6 @@
 {
   "name": "package-toezicht-dossier-service",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Microservice to generate packages based on toezicht dossier information",
   "dependencies": {
     "archiver": "^3.0.0",
