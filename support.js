@@ -72,7 +72,8 @@ const createZipFile = async function(name, files, borderel, publicatie) {
   });
   archive.pipe(output);
   files.map( (file) => {
-    archive.file(fileUrlToPath(file.file), {name: file.filename});
+    const filename = file.filename.replace(/[^a-zA-Z0-9\.-_]/gi, '');
+    archive.file(fileUrlToPath(file.file), {name: filename});
   });
   archive.file(borderel, {name: 'Borderel.xml'}); // The capital really matters
   archive.file(publicatie, {name: 'Publicatie.xml'}); // The capital really matters
