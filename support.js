@@ -46,6 +46,10 @@ const generateZipFileName = function(dossier, zipUUID){
   return `Inzending_financieel_${dossier.kbonummer}_${type}_${dossier.authenticityStatus || ''}_${boekjaar}_${decisionDate}_${timestamp}_${zipUUID}.zip`;
 };
 
+const normalizeFileName = function(filename) {
+  return filename.replace(/[^a-zA-Z0-9\.-_]/gi, '');
+};
+
 /**
  * create zip file in packagePath with the provided name(.zip),
  * containing the provided files and metadata
@@ -72,7 +76,7 @@ const createZipFile = async function(name, files, borderel, publicatie) {
   });
   archive.pipe(output);
   files.map( (file) => {
-    const filename = file.filename.replace(/[^a-zA-Z0-9\.-_]/gi, '');
+    const filename = normalizeFileName(file.filename);
     archive.file(fileUrlToPath(file.file), {name: filename});
   });
   archive.file(borderel, {name: 'Borderel.xml'}); // The capital really matters
@@ -92,7 +96,7 @@ const createBorderel = async function(dossier, files, publicatie) {
           .att('xsi:schemaLocation', 'http://MFT-01-00.abb.vlaanderen.be/Borderel Borderel.xsd')
           .att('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance')
           .att('xmlns:ns2', 'http://MFT-01-00.abb.vlaanderen.be/Borderel');
-  const bestanden = files.map( (file => { return { Bestand: { Bestandsnaam: file.filename } }; }));
+  const bestanden = files.map( (file => { return { Bestand: { Bestandsnaam: normalizeFileName(file.filename) } }; }));
   if (publicatie)
     bestanden.push({ Bestand: { Bestandsnaam: 'Publicatie.xml' } }); // The capital really matters
   xml.ele({
